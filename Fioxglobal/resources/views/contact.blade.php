@@ -344,7 +344,7 @@
                             <div class="info-label">Address</div>
                             <p class="info-value">
                                 105, Vinayak Complex, Sadhu Vasvani Rd,<br>
-                                Nr. Gangotri Dairy, Rajkot, Gujarat &ndash; 360 005
+                                Nr. Gangotri Dairy, Rajkot, Gujarat &ndash; 360 005.
                             </p>
                         </div>
                     </div>

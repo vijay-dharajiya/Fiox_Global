@@ -3,9 +3,7 @@
 @section('content')
 
 <style>
-    .pd-page {
-        background: white;
-    }
+    .pd-page { background: white; }
 
     .pd-wrap {
         max-width: 1240px;
@@ -22,31 +20,13 @@
         align-items: center;
         gap: 8px;
     }
-
-    .pd-crumb a {
-        color: var(--fiox-charcoal-soft);
-        text-decoration: none;
-        transition: color 0.2s ease;
-    }
-
-    .pd-crumb a:hover {
-        color: var(--fiox-amber-dark);
-    }
-
-    .pd-crumb .sep {
-        color: #cfc6b6;
-        font-size: 0.7rem;
-    }
-
-    .pd-crumb .current {
-        color: var(--fiox-amber-dark);
-        font-weight: 600;
-    }
+    .pd-crumb a { color: var(--fiox-charcoal-soft); text-decoration: none; transition: color 0.2s ease; }
+    .pd-crumb a:hover { color: var(--fiox-amber-dark); }
+    .pd-crumb .sep { color: #cfc6b6; font-size: 0.7rem; }
+    .pd-crumb .current { color: var(--fiox-amber-dark); font-weight: 600; }
 
     /* =========================================================
-       PRODUCT NAME — PREMIUM HEADING (same design as Application name)
-       eyebrow tag + large title + amber gradient accent stroke
-       + soft rotated corner ornament, on off-white plate
+       PRODUCT NAME — PREMIUM HEADING
        ========================================================= */
     .pd-heading {
         position: relative;
@@ -61,7 +41,6 @@
     }
 
     .pd-heading::before {
-        /* rotated square ornament, top-right */
         content: '';
         position: absolute;
         top: -46px;
@@ -76,7 +55,6 @@
     }
 
     .pd-heading::after {
-        /* thin sweeping baseline under the whole card */
         content: '';
         position: absolute;
         left: 0;
@@ -98,7 +76,6 @@
         color: var(--fiox-amber-dark, #9c6519);
         margin-bottom: 14px;
     }
-
     .pd-eyebrow::before {
         content: '';
         display: inline-block;
@@ -141,12 +118,7 @@
         gap: 10px;
     }
 
-    .pd-availability {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-weight: 600;
-    }
+    .pd-availability { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
 
     .pd-availability .dot {
         width: 7px;
@@ -164,22 +136,12 @@
         100% { box-shadow: 0 0 0 0 rgba(46, 139, 87, 0); }
     }
 
-    .pd-availability.is-inactive .dot {
-        background: #b0473c;
-        animation: none;
-        box-shadow: none;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .pd-heading {
-            animation: none;
-        }
-    }
+    .pd-availability.is-inactive .dot { background: #b0473c; animation: none; box-shadow: none; }
 
     /* ===== PAGE REVEAL (fade + blur on load) ===== */
     @keyframes pdReveal {
         from { opacity: 0; filter: blur(10px); }
-        to { opacity: 1; filter: blur(0); }
+        to   { opacity: 1; filter: blur(0); }
     }
 
     .pd-grid {
@@ -193,28 +155,22 @@
         35%  { filter: blur(6px); }
         100% { filter: blur(0); }
     }
-
-    .pd-click-blur {
-        animation: pdClickBlur 0.5s ease;
-    }
+    .pd-click-blur { animation: pdClickBlur 0.5s ease; }
 
     @media (prefers-reduced-motion: reduce) {
+        .pd-heading,
         .pd-grid,
-        .pd-availability .dot {
-            animation: none;
-        }
-
-        .pd-click-blur {
-            animation: none;
-        }
+        .pd-availability .dot,
+        .pd-click-blur { animation: none; }
     }
 
-    /* ===== TWO COLUMN: 40 / 60 ===== */
+    /* ===== TWO COLUMN: 40 / 60 (gap comes out of the columns, no overflow) ===== */
     .pd-grid {
         display: grid;
-        grid-template-columns: 40% 60%;
+        grid-template-columns: minmax(0, 40fr) minmax(0, 60fr);
         gap: 56px;
         align-items: start;
+        width: 100%;
     }
 
     /* ---- LEFT: IMAGE PANEL / AUTO SLIDER ---- */
@@ -222,7 +178,7 @@
         background: #ffffff;
         border-radius: 14px;
         box-shadow: 0 1px 2px rgba(47,47,48,0.04), 0 20px 40px -20px rgba(47,47,48,0.18);
-        padding: 0px; /* this is the space of image and card border of product image */
+        padding: 0px;
         border-top: 4px solid var(--fiox-amber);
         border-bottom: 4px solid #C7C7C7;
         transition: box-shadow 0.3s ease, transform 0.3s ease;
@@ -257,16 +213,9 @@
         transition: opacity 0.5s ease, transform 0.5s ease, filter 0.4s ease;
     }
 
-    .pd-main-image img.is-fading {
-        opacity: 0;
-        transform: scale(1.04);
-    }
+    .pd-main-image img.is-fading { opacity: 0; transform: scale(1.04); }
+    .pd-image-panel:hover .pd-main-image img { transform: scale(1.045); }
 
-    .pd-image-panel:hover .pd-main-image img {
-        transform: scale(1.045);
-    }
-
-    /* Slider dots */
     .pd-slider-dots {
         position: absolute;
         left: 0;
@@ -324,9 +273,7 @@
         transition: transform 0.35s ease;
     }
 
-    .pd-thumb:hover img {
-        transform: scale(1.12);
-    }
+    .pd-thumb:hover img { transform: scale(1.12); }
 
     .pd-thumb.active,
     .pd-thumb:hover {
@@ -337,6 +284,12 @@
     }
 
     /* ---- RIGHT: DESCRIPTION (flat, no card) ---- */
+    .pd-details {
+        min-width: 0;
+        width: 100%;
+        overflow-wrap: anywhere;
+    }
+
     .pd-details h2,
     .pd-details h3 {
         font-family: 'Poppins', 'Segoe UI', sans-serif;
@@ -346,16 +299,14 @@
         font-size: 1.15rem;
     }
 
-    .pd-details > *:first-child {
-        margin-top: 0;
-    }
+    .pd-details > *:first-child { margin-top: 0; }
 
     .pd-details p {
         font-size: 18px;
         line-height: 1.8;
         color: var(--fiox-charcoal-soft);
         margin: 0 0 16px;
-        max-width: 62ch;
+        max-width: 100%;
     }
 
     .pd-details ul {
@@ -371,7 +322,7 @@
         line-height: 1.65;
         color: var(--fiox-charcoal-soft);
         margin-bottom: 11px;
-        max-width: 62ch;
+        max-width: 100%;
         transition: color 0.2s ease, padding-left 0.2s ease;
     }
 
@@ -387,18 +338,22 @@
         transition: box-shadow 0.2s ease;
     }
 
-    .pd-details ul li:hover {
-        color: var(--fiox-charcoal);
-        padding-left: 26px;
+    .pd-details ul li:hover { color: var(--fiox-charcoal); padding-left: 26px; }
+    .pd-details ul li:hover::before { box-shadow: 0 0 0 5px rgba(231, 184, 101, 0.3); }
+
+    .pd-details strong { color: var(--fiox-charcoal); font-weight: 600; }
+
+    /* guards against wide content coming from the admin editor */
+    .pd-details img,
+    .pd-details table,
+    .pd-details iframe {
+        max-width: 100%;
+        height: auto;
     }
 
-    .pd-details ul li:hover::before {
-        box-shadow: 0 0 0 5px rgba(231, 184, 101, 0.3);
-    }
-
-    .pd-details strong {
-        color: var(--fiox-charcoal);
-        font-weight: 600;
+    .pd-details table {
+        display: block;
+        overflow-x: auto;
     }
 
     /* ---- CTA ---- */
@@ -445,14 +400,8 @@
         box-shadow: 0 14px 26px -12px rgba(231, 184, 101, 0.65);
     }
 
-    .pd-btn-primary:hover::after {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    .pd-btn-primary:active {
-        transform: translateY(0) scale(0.98);
-    }
+    .pd-btn-primary:hover::after { opacity: 1; transform: scale(1); }
+    .pd-btn-primary:active { transform: translateY(0) scale(0.98); }
 
     /* =====================================================
        ADVANTAGES CARD (golden theme + animated border)
@@ -463,19 +412,14 @@
         initial-value: 0deg;
     }
 
-    @keyframes pdSpinBorder {
-        to { --pd-angle: 360deg; }
-    }
+    @keyframes pdSpinBorder { to { --pd-angle: 360deg; } }
 
-    /* shared section spacing: Advantages and Comparison use the same gap */
-    .pd-adv-section {
-        margin-top: 72px;
-    }
+    .pd-adv-section { margin-top: 72px; }
 
     .pd-adv-card {
         position: relative;
         border-radius: 24px;
-        padding: 3px; /* border thickness */
+        padding: 3px;
         background: linear-gradient(135deg, #E7B865, var(--fiox-amber), #f6dfa8, var(--fiox-amber-dark));
         background: conic-gradient(
             from var(--pd-angle),
@@ -491,7 +435,6 @@
         transition: transform 0.4s cubic-bezier(.22, 1, .36, 1), box-shadow 0.4s ease;
     }
 
-    /* soft glowing halo behind the card */
     .pd-adv-card::before {
         content: '';
         position: absolute;
@@ -504,14 +447,8 @@
         transition: opacity 0.4s ease;
     }
 
-    .pd-adv-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 40px 70px -30px rgba(184, 121, 31, 0.6);
-    }
-
-    .pd-adv-card:hover::before {
-        opacity: 0.45;
-    }
+    .pd-adv-card:hover { transform: translateY(-6px); box-shadow: 0 40px 70px -30px rgba(184, 121, 31, 0.6); }
+    .pd-adv-card:hover::before { opacity: 0.45; }
 
     .pd-adv-inner {
         position: relative;
@@ -524,7 +461,6 @@
             linear-gradient(180deg, #fffdf7 0%, #fbf3e1 100%);
     }
 
-    /* diagonal shine sweep on hover */
     .pd-adv-inner::after {
         content: '';
         position: absolute;
@@ -538,14 +474,11 @@
         pointer-events: none;
     }
 
-    .pd-adv-card:hover .pd-adv-inner::after {
-        left: 130%;
-    }
+    .pd-adv-card:hover .pd-adv-inner::after { left: 130%; }
 
-    /* ---- ADVANTAGES HEADER: icon + text, both centered top/bottom ---- */
     .pd-adv-head {
         display: flex;
-        align-items: center; /* vertically centers icon and text row against each other */
+        align-items: center;
         gap: 16px;
         margin-bottom: 16px;
         padding-bottom: 16px;
@@ -567,13 +500,8 @@
         box-shadow: 0 12px 22px -10px rgba(184, 121, 31, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.45);
     }
 
-    .pd-adv-icon i {
-        display: block;
-        line-height: 1; /* keeps the glyph itself dead-center inside the 56x56 box */
-    }
+    .pd-adv-icon i { display: block; line-height: 1; }
 
-    /* wraps the eyebrow text; same height as the icon so the text block
-       gets identical top/bottom space and sits centered beside it */
     .pd-adv-head-text {
         display: flex;
         flex-direction: column;
@@ -601,10 +529,7 @@
         margin: 0;
     }
 
-    .pd-adv-body {
-        position: relative;
-        z-index: 1;
-    }
+    .pd-adv-body { position: relative; z-index: 1; }
 
     .pd-adv-body ul,
     .pd-adv-body ol {
@@ -629,7 +554,6 @@
         transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
     }
 
-    /* gold check badge */
     .pd-adv-body li::before {
         content: '\2713';
         position: absolute;
@@ -672,18 +596,12 @@
         margin: 0 0 14px;
     }
 
-    .pd-adv-body strong {
-        font-weight: 600;
-    }
+    .pd-adv-body strong { font-weight: 600; }
 
     /* =====================================================
        COMPARISON SECTION
-       Same width, radius, border and spacing as the Advantages card
        ===================================================== */
-    .pd-compare-head {
-        text-align: center;
-        margin-bottom: 44px;
-    }
+    .pd-compare-head { text-align: center; margin-bottom: 44px; }
 
     .pd-compare-eyebrow {
         display: inline-block;
@@ -727,13 +645,10 @@
     .pd-compare-list {
         display: flex;
         flex-direction: column;
-        align-items: center; /* centers each (now-narrower) comparison item */
+        align-items: center;
         gap: 32px;
     }
 
-    /* single gold frame, static (no hover movement)
-       FIX: capped to 60% of the wrap width and centered via the parent's
-       align-items:center above, instead of stretching to the full row width. */
     .pd-compare-item {
         position: relative;
         width: 60%;
@@ -749,10 +664,7 @@
         transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.22, 1, .36, 1);
     }
 
-    .pd-compare-item.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    .pd-compare-item.is-visible { opacity: 1; transform: translateY(0); }
 
     .pd-compare-frame {
         position: relative;
@@ -761,12 +673,7 @@
         background: #fff;
     }
 
-    /* height:auto so the table image is NEVER cropped */
-    .pd-compare-frame img {
-        display: block;
-        width: 100%;
-        height: auto;
-    }
+    .pd-compare-frame img { display: block; width: 100%; height: auto; }
 
     .pd-compare-chip,
     .pd-compare-zoom {
@@ -785,20 +692,10 @@
         border-radius: 999px;
     }
 
-    .pd-compare-chip {
-        left: 16px;
-        background: linear-gradient(135deg, #E7B865, var(--fiox-amber-dark));
-    }
+    .pd-compare-chip { left: 16px; background: linear-gradient(135deg, #E7B865, var(--fiox-amber-dark)); }
 
-    .pd-compare-zoom {
-        right: 16px;
-        opacity: 0;
-        transition: opacity 0.25s ease;
-    }
-
-    .pd-compare-item:hover .pd-compare-zoom {
-        opacity: 1;
-    }
+    .pd-compare-zoom { right: 16px; opacity: 0; transition: opacity 0.25s ease; }
+    .pd-compare-item:hover .pd-compare-zoom { opacity: 1; }
 
     /* ===== FULL-SCREEN LIGHTBOX ===== */
     .pd-lightbox {
@@ -814,10 +711,7 @@
         cursor: zoom-out;
     }
 
-    .pd-lightbox.open {
-        opacity: 1;
-        visibility: visible;
-    }
+    .pd-lightbox.open { opacity: 1; visibility: visible; }
 
     .pd-lightbox img {
         margin: auto;
@@ -831,9 +725,7 @@
         transition: transform 0.3s ease, opacity 0.2s ease;
     }
 
-    .pd-lightbox.open img {
-        transform: scale(1);
-    }
+    .pd-lightbox.open img { transform: scale(1); }
 
     .pd-lightbox-close,
     .pd-lightbox-nav {
@@ -853,31 +745,14 @@
         transition: background 0.2s ease, transform 0.2s ease;
     }
 
-    .pd-lightbox-close {
-        top: 18px;
-        right: 22px;
-    }
+    .pd-lightbox-close { top: 18px; right: 22px; }
+    .pd-lightbox-close:hover { background: var(--fiox-amber); transform: rotate(90deg); }
 
-    .pd-lightbox-close:hover {
-        background: var(--fiox-amber);
-        transform: rotate(90deg);
-    }
-
-    .pd-lightbox-nav {
-        top: 50%;
-        margin-top: -23px;
-    }
-
+    .pd-lightbox-nav { top: 50%; margin-top: -23px; }
     .pd-lightbox-nav.prev { left: 22px; }
     .pd-lightbox-nav.next { right: 22px; }
-
-    .pd-lightbox-nav:hover {
-        background: var(--fiox-amber);
-    }
-
-    .pd-lightbox-nav.is-hidden {
-        display: none;
-    }
+    .pd-lightbox-nav:hover { background: var(--fiox-amber); }
+    .pd-lightbox-nav.is-hidden { display: none; }
 
     .pd-lightbox-count {
         position: fixed;
@@ -894,54 +769,21 @@
         pointer-events: none;
     }
 
-    .pd-lightbox-count.is-hidden {
-        display: none;
-    }
+    .pd-lightbox-count.is-hidden { display: none; }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 900px) {
-        .pd-grid {
-            grid-template-columns: 1fr;
-            gap: 36px;
-        }
-
-        .pd-title {
-            font-size: 2rem;
-        }
-
-        .pd-adv-section {
-            margin-top: 52px;
-        }
-
-        .pd-adv-inner {
-            padding: 32px 22px 26px;
-        }
-
+        .pd-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+        .pd-title { font-size: 2rem; }
+        .pd-adv-section { margin-top: 52px; }
+        .pd-adv-inner { padding: 32px 22px 26px; }
         .pd-adv-body ul,
-        .pd-adv-body ol {
-            columns: 1;
-        }
+        .pd-adv-body ol { columns: 1; }
+        .pd-compare-head { margin-bottom: 32px; }
+        .pd-compare-title { font-size: 1.8rem; }
+        .pd-compare-list { gap: 24px; }
+        .pd-compare-item { width: 85%; max-width: 85%; }
 
-        .pd-compare-head {
-            margin-bottom: 32px;
-        }
-
-        .pd-compare-title {
-            font-size: 1.8rem;
-        }
-
-        .pd-compare-list {
-            gap: 24px;
-        }
-
-        /* 60% is too narrow to read a data table on tablets/phones,
-           so let it grow back out on smaller screens */
-        .pd-compare-item {
-            width: 85%;
-            max-width: 85%;
-        }
-
-        /* on phones, open the image bigger so the table is readable (scroll sideways) */
         .pd-lightbox img {
             max-width: none;
             max-height: none;
@@ -950,75 +792,24 @@
     }
 
     @media (max-width: 480px) {
-        .pd-wrap {
-            padding: 36px 18px 56px;
-        }
-
-        .pd-heading {
-            padding: 28px 22px 26px;
-            border-radius: 14px;
-        }
-
-        .pd-title {
-            font-size: 1.55rem;
-            padding-left: 14px;
-            border-left-width: 4px;
-        }
-
-        .pd-subline {
-            padding-left: 14px;
-        }
-
-        .pd-image-panel {
-            padding: 14px;
-        }
-
-        .pd-badge .pd-badge-text {
-            white-space: normal;
-        }
-
-        .pd-adv-title {
-            font-size: 1.35rem;
-        }
-
-        .pd-adv-icon {
-            width: 46px;
-            height: 46px;
-            font-size: 1.3rem;
-        }
-
-        .pd-adv-head-text {
-            min-height: 46px;
-        }
-
-        .pd-compare-item {
-            width: 100%;
-            max-width: 100%;
-        }
-
-        .pd-compare-zoom {
-            display: none;
-        }
-
-        .pd-lightbox-nav {
-            width: 40px;
-            height: 40px;
-        }
-
+        .pd-wrap { padding: 36px 18px 56px; }
+        .pd-heading { padding: 28px 22px 26px; border-radius: 14px; }
+        .pd-title { font-size: 1.55rem; padding-left: 14px; border-left-width: 4px; }
+        .pd-subline { padding-left: 14px; }
+        .pd-image-panel { padding: 14px; }
+        .pd-adv-title { font-size: 1.35rem; }
+        .pd-adv-icon { width: 46px; height: 46px; font-size: 1.3rem; }
+        .pd-adv-head-text { min-height: 46px; }
+        .pd-compare-item { width: 100%; max-width: 100%; }
+        .pd-compare-zoom { display: none; }
+        .pd-lightbox-nav { width: 40px; height: 40px; }
         .pd-lightbox-nav.prev { left: 10px; }
         .pd-lightbox-nav.next { right: 10px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-        .pd-adv-card {
-            animation: none;
-        }
-
-        .pd-compare-item {
-            opacity: 1;
-            transform: none;
-            transition: none;
-        }
+        .pd-adv-card { animation: none; }
+        .pd-compare-item { opacity: 1; transform: none; transition: none; }
     }
 </style>
 
@@ -1097,7 +888,7 @@
             </section>
         @endif
 
-        <!-- COMPARISON (same width + spacing as Advantages, click = full screen) -->
+        <!-- COMPARISON (click = full screen) -->
         @if ($hasComparison)
             <section class="pd-adv-section">
                 <div class="pd-compare-head">
@@ -1109,7 +900,7 @@
                 <div class="pd-compare-list">
                     @foreach ($product->comparisonImages as $cmp)
                         <div class="pd-compare-item" data-full="{{ asset('product/' . $cmp->image) }}">
-                            
+
                             <span class="pd-compare-zoom"><i class="bi bi-arrows-fullscreen"></i> View full screen</span>
 
                             <div class="pd-compare-frame">
@@ -1199,8 +990,7 @@
 
         function nextSlide() {
             if (!slides.length) return;
-            var next = (current + 1) % slides.length;
-            goToSlide(next);
+            goToSlide((current + 1) % slides.length);
         }
 
         function startAutoplay() {
@@ -1233,7 +1023,7 @@
         // Click-to-blur pulse effect on the main image
         mainWrap.addEventListener('click', function () {
             mainImage.classList.remove('pd-click-blur');
-            void mainImage.offsetWidth; // restart animation
+            void mainImage.offsetWidth;
             mainImage.classList.add('pd-click-blur');
         });
 
@@ -1241,9 +1031,10 @@
         var ctaBtn = document.querySelector('.pd-btn-primary');
         if (ctaBtn) {
             ctaBtn.addEventListener('click', function () {
-                document.querySelector('.pd-grid').classList.remove('pd-click-blur');
-                void document.querySelector('.pd-grid').offsetWidth;
-                document.querySelector('.pd-grid').classList.add('pd-click-blur');
+                var grid = document.querySelector('.pd-grid');
+                grid.classList.remove('pd-click-blur');
+                void grid.offsetWidth;
+                grid.classList.add('pd-click-blur');
             });
         }
 
